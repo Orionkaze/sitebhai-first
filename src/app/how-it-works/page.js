@@ -108,50 +108,77 @@ export default function HowItWorksPage() {
             </p>
           </div>
 
-          <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-            <div className="overflow-x-auto styled-scrollbar">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-primary text-white border-b border-slate-200">
-                    <th className="py-4 px-5 font-head font-bold text-xs uppercase tracking-wider">
-                      Update Type
-                    </th>
-                    <th className="py-4 px-5 font-head font-bold text-xs uppercase tracking-wider w-36">
-                      Cost
-                    </th>
-                    <th className="py-4 px-5 font-head font-bold text-xs uppercase tracking-wider">
-                      Description
-                    </th>
+          {/* Desktop Table View */}
+          <div className="hidden md:block border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-primary text-white border-b border-slate-200">
+                  <th className="py-4 px-5 font-head font-bold text-xs uppercase tracking-wider">
+                    Update Type
+                  </th>
+                  <th className="py-4 px-5 font-head font-bold text-xs uppercase tracking-wider w-36">
+                    Cost
+                  </th>
+                  <th className="py-4 px-5 font-head font-bold text-xs uppercase tracking-wider">
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {maintenanceRows.map((row, i) => (
+                  <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="py-4 px-5">
+                      <div className="font-head font-bold text-slate-800 text-sm">
+                        {row.name}
+                      </div>
+                      <div className="text-xs text-slate-400 font-medium mt-0.5 max-w-xs">
+                        {row.sub}
+                      </div>
+                    </td>
+                    <td className="py-4 px-5">
+                      <span
+                        className={`font-head font-extrabold text-sm ${
+                          row.isFree ? "text-emerald-600" : "text-accent"
+                        }`}
+                      >
+                        {row.price}
+                      </span>
+                    </td>
+                    <td className="py-4 px-5 text-xs text-slate-500 leading-relaxed">
+                      {row.desc}
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {maintenanceRows.map((row, i) => (
-                    <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                      <td className="py-4 px-5">
-                        <div className="font-head font-bold text-slate-800 text-sm">
-                          {row.name}
-                        </div>
-                        <div className="text-xs text-slate-400 font-medium mt-0.5 max-w-xs">
-                          {row.sub}
-                        </div>
-                      </td>
-                      <td className="py-4 px-5">
-                        <span
-                          className={`font-head font-extrabold text-sm ${
-                            row.isFree ? "text-emerald-600" : "text-accent"
-                          }`}
-                        >
-                          {row.price}
-                        </span>
-                      </td>
-                      <td className="py-4 px-5 text-xs text-slate-500 leading-relaxed">
-                        {row.desc}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Card List View */}
+          <div className="flex flex-col gap-4 md:hidden">
+            {maintenanceRows.map((row, i) => (
+              <div key={i} className="border border-slate-200 rounded-xl p-5 bg-white shadow-sm flex flex-col gap-3">
+                <div className="flex justify-between items-start gap-4">
+                  <div>
+                    <div className="font-head font-bold text-slate-800 text-base">
+                      {row.name}
+                    </div>
+                    <div className="text-xs text-slate-400 font-medium mt-0.5">
+                      {row.sub}
+                    </div>
+                  </div>
+                  <span
+                    className={`font-head font-extrabold text-xs px-2.5 py-1 rounded-full shrink-0 ${
+                      row.isFree ? "bg-emerald-50 text-emerald-600 border border-emerald-100/50" : "bg-orange-50 text-accent border border-orange-100/50"
+                    }`}
+                  >
+                    {row.price}
+                  </span>
+                </div>
+                <div className="text-xs text-slate-500 leading-relaxed pt-2 border-t border-slate-100">
+                  {row.desc}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
